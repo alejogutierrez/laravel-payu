@@ -1,0 +1,30 @@
+{
+  "name": "alexo/laravel-payu",
+  "description": "Una interfaz fluida para Laravel usando el SDK oficial de PayU latam.",
+  "keywords": ["laravel", "payu", "pagos"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Alejandro Gutiérrez",
+      "email": "alejandrogutierrezacosta@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.9",
+    "nesbot/carbon": "~1.0",
+    "symfony/http-kernel": "~2.7|~3.0",
+    "symfony/translation": "~3.1.5"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0",
+    "vlucas/phpdotenv": "~2.0"
+  },
+  "autoload": {
+    "classmap": [
+      "sdk/lib"
+    ],
+    "psr-4": {
+      "Alexo\\LaravelPayU\\": "src/"
+    }
+  }
+}
