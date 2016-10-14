@@ -6,15 +6,11 @@ Este proyecto hace uso del [sdk de Payu](http://developers.payulatam.com/es/sdk/
 
 ## Instalación y configuración
 
-Incluir el paquete en el *composer.json* del proyecto y actualizar
-``` bash
-"alexo/laravel-payu": "~1.0.0"
-```
+Instalar el paquete mediante composerÑ
 
 ``` bash
-composer update
+composer require alexo/laravel-payu
 ```
-
 
 Luego incluir el ServiceProvider en el arreglo de providers en *config/app.php*
 ``` bash
@@ -122,6 +118,9 @@ poder utilizar la constante, dado que el sdk no usa namespaces y autoloading.
 - Una función (closure) que recibe las Excepciones generadas por validación ó
 errores en el pago.
 
+También puede usar los métodos *authorizeWith* y *captureWith* para autorización de
+pago y captura de la orden, pero recuerde que sólo están disponibles para Brasíl.
+
 ### Consultas
 
 Para las consultas se agrega el trait Searchable en el modelo de la orden asi:
@@ -137,7 +136,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    use Payable, use Searchable;
+    use Payable, Searchable;
 
 ```
 
@@ -173,8 +172,8 @@ Los métodos *searchById*, *searchByReference* y *searchByTransaction* reciben d
 
 
 ## Pruebas
-
-Crear un archivo *.env* en la raiz del paquete con la configuración respectiva de pruebas y luego si ejecutar las pruebas:
+Instalar las dependencias del paquete.
+Crear un archivo *.env* en la raiz del paquete con la configuración respectiva de pruebas para Colombia, ya que es el único país con los tres métodos de pago disponibles. Ver información en [sitio de PayU](http://developers.payulatam.com/es/sdk/sandbox.html) y luego si ejecutar las pruebas:
 
 ``` bash
 phpunit
