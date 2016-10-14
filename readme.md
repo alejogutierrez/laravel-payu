@@ -6,7 +6,7 @@ Este proyecto hace uso del [sdk de Payu](http://developers.payulatam.com/es/sdk/
 
 ## Instalación y configuración
 
-Instalar el paquete mediante composerÑ
+Instalar el paquete mediante composer:
 
 ``` bash
 composer require alexo/laravel-payu
@@ -17,7 +17,7 @@ Luego incluir el ServiceProvider en el arreglo de providers en *config/app.php*
 Alexo\LaravelPayU\LaravelPayUServiceProvider::class,
 ```
 
-Publicar la configuración para incluir la informacion de la cuenta de payu:
+Publicar la configuración para incluir la informacion de la cuenta de PayU:
 ``` bash
 php artisan vendor:publish 
 ```
@@ -44,7 +44,7 @@ PAYU_COUNTRY=your-country-ref: AR/BR/CO/CL/MX/PA/PE/US
 ## Uso del API
 
 Esta versión contiene solo una interfaz para pagos únicos y consultas.
-Si necesita usar tokenización y pagos recurrentes debe usar el sdk de Payu directamente.
+Si necesita usar tokenización y pagos recurrentes debe usar el sdk de PayU directamente.
 
 ### Pagos Únicos
 
@@ -119,7 +119,9 @@ poder utilizar la constante, dado que el sdk no usa namespaces y autoloading.
 errores en el pago.
 
 También puede usar los métodos *authorizeWith* y *captureWith* para autorización de
-pago y captura de la orden, pero recuerde que sólo están disponibles para Brasíl.
+pago y captura de la orden, pero recuerde que sólo están disponibles para **Brasíl**.
+
+Ver documentación del [sdk para pagos](http://developers.payulatam.com/es/sdk/payments.html).
 
 ### Consultas
 
@@ -168,7 +170,9 @@ $order->searchByTransaction(function($response, $order) {
 Los métodos *searchById*, *searchByReference* y *searchByTransaction* reciben dos parámetros:
 
 - Una función (closure) que recibe la respuesta de la consulta.
-- Una función (closure) que recibe las Excepciones generadas por validación ó
+- Una función (closure) que recibe las Excepciones generadas por validación ó errores en el pago.
+
+Ver documentación del [sdk de consultas](http://developers.payulatam.com/es/sdk/queries.html).
 
 
 ## Pruebas
