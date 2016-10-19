@@ -301,6 +301,23 @@ class LaravelPayU
     }
 
     /**
+     * Check if PayU platform available.
+     *
+     * @return PayU RequestPaymentsUtil
+     */
+    public static function doPing($onSuccess, $onError)
+    {
+        try {
+            $response = \PayUPayments::doPing();
+            if ($response) {
+                $onSuccess($response);
+            }
+        } catch (\PayUException $exc) {
+            $onError($exc);
+        }
+    }
+
+    /**
      * Get array of available PSE banks.
      *
      * @return array

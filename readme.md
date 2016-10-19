@@ -46,6 +46,49 @@ PAYU_COUNTRY=your-country-ref: AR/BR/CO/CL/MX/PA/PE/US
 Esta versión contiene solo una interfaz para pagos únicos y consultas.
 Si necesita usar tokenización y pagos recurrentes debe usar el sdk de PayU directamente.
 
+### Ping y Bancos
+
+Para consultar la disponibilidad de la plataforma se puede usan el método doPing en el controlador
+designado:
+
+``` bash
+<?php
+
+namespace App\Http\Controllers;
+
+use Alexo\LaravelPayU\LaravelPayU;
+
+class PaymentsController extends Controller
+{
+    LaravelPayU::doPing(function($response) {
+        $code = $response->code;
+        // ... revisar el codigo de respuesta
+    }, function($error) {
+     // ... Manejo de errores PayUException
+    });
+```
+
+Para consulta de bancos se utiliza el método getPSEBanks que tambien recibe una funcion de respuesta
+y una de error:
+``` bash
+<?php
+
+namespace App\Http\Controllers;
+
+use Alexo\LaravelPayU\LaravelPayU;
+
+class PaymentsController extends Controller
+{
+    LaravelPayU::getPSEBanks(function($banks) {
+        //... Usar datos de bancos
+        foreach($banks as $bank) {
+            $bankCode = $bank->pseCode;
+        }
+    }, function($error) {
+        // ... Manejo de errores PayUException, InvalidArgument
+    });
+```
+
 ### Pagos Únicos
 
 Permite el pago de ordenes generadas a través del uso de un [*trait*](http://php.net/manual/en/language.oop5.traits.php) de la siguiente manera:
