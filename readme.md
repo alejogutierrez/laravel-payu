@@ -48,7 +48,7 @@ Si necesita usar tokenización y pagos recurrentes debe usar el sdk de PayU dire
 
 ### Ping y Bancos
 
-Para consultar la disponibilidad de la plataforma se puede usan el método doPing en el controlador
+Para consultar la disponibilidad de la plataforma se puede usar el método doPing en el controlador
 designado:
 
 ``` bash
@@ -68,7 +68,7 @@ class PaymentsController extends Controller
     });
 ```
 
-Para consulta de bancos se utiliza el método getPSEBanks que tambien recibe una funcion de respuesta
+Para consulta de bancos se utiliza el método getPSEBanks que también recibe una función de respuesta
 y una de error:
 ``` bash
 <?php
