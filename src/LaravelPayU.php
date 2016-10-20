@@ -337,6 +337,10 @@ class LaravelPayU
             }
         } catch (\PayUException $exc) {
             $onError($exc);
+        } catch (ConnectionException $exc) {
+            $onError($exc);
+        } catch (RuntimeException $exc) {
+            $onError($exc);
         } catch (InvalidArgumentException $exc) {
             $onError($exc);
         }
