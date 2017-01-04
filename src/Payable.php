@@ -24,6 +24,14 @@ trait Payable
             $params[\PayUParameters::ACCOUNT_ID] = LaravelPayU::getAccountId();
             $params[\PayUParameters::COUNTRY] = LaravelPayU::getCountry();
 
+            if (array_key_exists(\PayUParameters::PAYMENT_METHOD, $params)) {
+                if ($params[\PayUParameters::PAYMENT_METHOD] == 'PSE') {
+                    if (!array_key_exists(\PayUParameters::RESPONSE_URL, $params)) {
+                        $params[\PayUParameters::RESPONSE_URL] = LaravelPayU::getRedirectPSE();
+                    }
+                }
+            }
+
             $response = \PayUPayments::doAuthorizationAndCapture($params);
 
             if ($response) {

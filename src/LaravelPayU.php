@@ -259,6 +259,20 @@ class LaravelPayU
     }
 
     /**
+     * Get the PSE redirect URL.
+     *
+     * @return string
+     */
+    public static function getRedirectPSE()
+    {
+        if ($pseRedirect = getenv('PSE_REDIRECT_URL')) {
+            return $pseRedirect;
+        }
+
+        return config('payu.pse_redirect_url');
+    }
+
+    /**
      * Set the Account testing state (never use on production)
      *
      * @return string

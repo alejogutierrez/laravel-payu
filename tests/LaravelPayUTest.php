@@ -128,14 +128,14 @@ class LaravelPayUTest extends PHPUnit_Framework_TestCase
                 \PayUParameters::PAYER_NAME => $user->name,
                 \PayUParameters::PAYER_EMAIL => $user->email,
                 \PayUParameters::PAYER_DNI => $user->identification,
-                \PayUParameters::PAYER_CONTACT_PHONE=> "7563126",
+                \PayUParameters::PAYER_CONTACT_PHONE=> '7563126',
                 \PayUParameters::PAYER_DOCUMENT_TYPE => 'CC',
                 \PayUParameters::PAYER_PERSON_TYPE => 'N',
                 \PayUParameters::PSE_FINANCIAL_INSTITUTION_CODE => $bankCode,
                 \PayUParameters::REFERENCE_CODE => $order->reference,
                 \PayUParameters::DEVICE_SESSION_ID => session_id($session),
                 \PayUParameters::USER_AGENT => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36',
-                \PayUParameters::VALUE => $order->value,
+                \PayUParameters::VALUE => $order->value
             ];
 
             $order->payWith($data, function($response) {

@@ -39,6 +39,8 @@ PAYU_API_KEY=your-api-key
 PAYU_ACCOUNT_ID=your-account-id
 
 PAYU_COUNTRY=your-country-ref: AR/BR/CO/CL/MX/PA/PE/US
+
+PSE_REDIRECT_URL=your-pse-redirect-url
 ```
 
 ## Uso del API
