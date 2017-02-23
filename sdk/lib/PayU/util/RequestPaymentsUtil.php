@@ -405,6 +405,7 @@ class RequestPaymentsUtil extends CommonRequestUtil{
 		$payer->cnpj = CommonRequestUtil::getParameter($parameters, PayUParameters::PAYER_CNPJ);
 		$payer->contactPhone = CommonRequestUtil::getParameter($parameters, PayUParameters::PAYER_CONTACT_PHONE);
 		$payer->dniNumber = CommonRequestUtil::getParameter($parameters, PayUParameters::PAYER_DNI);
+		$payer->dniType = CommonRequestUtil::getParameter($parameters, PayUParameters::PAYER_DNI_TYPE);
 		$payer->businessName = CommonRequestUtil::getParameter($parameters, PayUParameters::PAYER_BUSINESS_NAME);
 		
 		$payerBirthDay = CommonRequestUtil::getParameter($parameters,PayUParameters::PAYER_BIRTHDATE);

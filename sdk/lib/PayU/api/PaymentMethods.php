@@ -33,7 +33,7 @@ class PaymentMethods{
 	const BANK_REFERENCED= 'BANK_REFERENCED';
 	const VISANET= 'VISANET';
 	const RIPSA= 'RIPSA';
-	
+	const CODENSA= 'CODENSA';
 	
 	/**
 	 * payment methods availables in payu including its payment method type
@@ -81,6 +81,8 @@ class PaymentMethods{
 		PaymentMethods::VISANET=>array('name'=>PaymentMethods::VISANET,'type'=>PayUPaymentMethodType::CREDIT_CARD),
 		
 		PaymentMethods::RIPSA=>array('name'=>PaymentMethods::RIPSA,'type'=>PayUPaymentMethodType::CASH),
+		
+		PaymentMethods::CODENSA=>array('name'=>PaymentMethods::CODENSA,'type'=>PayUPaymentMethodType::CREDIT_CARD)
 	);
 	
 	/**
