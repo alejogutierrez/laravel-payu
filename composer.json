@@ -12,8 +12,8 @@
   "require": {
     "php": ">=5.5.9",
     "nesbot/carbon": "~1.0",
-    "symfony/http-kernel": "~2.7|~3.*",
-    "symfony/translation": "~2.7|~3.*"
+    "symfony/http-kernel": "~2.7.*|~3.2",
+    "symfony/translation": "~2.7.*|~3.2"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0",
