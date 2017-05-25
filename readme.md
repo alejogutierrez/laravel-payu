@@ -132,6 +132,8 @@ consultas posteriormente.
 Una vez configurado el modelo, en el controlador designado para pagos podemos usar el método *payWith* para hacer la consulta y captura de pago (equivalente a doAuthorizationAndCapture en el sdk):
 
 ```php
+<?php
+
 $order = Order::find($id);
 
 $data = [
@@ -195,6 +197,8 @@ class Order extends Model
 Luego en el controlador designado para consultas podemos hacer consultas usando el id asignado por Payu, la referencia dada por nosotros, o el id de la transacción:
 
 ```php
+<?php
+
 $order = Order::find($id);
 
 $order->searchById(function($response, $order) {
