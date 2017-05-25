@@ -1,4 +1,4 @@
-#LaravelPayU
+# LaravelPayU
 
 ## Introducción
 LaravelPayU provee una interfaz sencilla para utilizar el sdk de PayU en proyectos que tienen como base el framework [*Laravel*](https://laravel.com).
@@ -8,24 +8,27 @@ Este proyecto hace uso del [sdk de Payu](http://developers.payulatam.com/es/sdk/
 
 Instalar el paquete mediante composer:
 
-``` bash
+```bash
 composer require alexo/laravel-payu
 ```
 
 Luego incluir el ServiceProvider en el arreglo de providers en *config/app.php*
-``` bash
+
+```bash
 Alexo\LaravelPayU\LaravelPayUServiceProvider::class,
 ```
 
 Publicar la configuración para incluir la informacion de la cuenta de PayU:
-``` bash
+
+```bash
 php artisan vendor:publish 
 ```
 
 
 Incluir la informacion de la cuenta y ajustes en el archivo *.env* ó directamente en
 el archivo de configuración *config/payu.php*
-``` bash
+
+```bash
 APP_ENV=local
 
 PAYU_ON_TESTING=true
@@ -53,7 +56,7 @@ Si necesita usar tokenización y pagos recurrentes debe usar el sdk de PayU dire
 Para consultar la disponibilidad de la plataforma se puede usar el método doPing en el controlador
 designado:
 
-``` bash
+```php
 <?php
 
 namespace App\Http\Controllers;
@@ -68,11 +71,13 @@ class PaymentsController extends Controller
     }, function($error) {
      // ... Manejo de errores PayUException
     });
+
 ```
 
 Para consulta de bancos se utiliza el método getPSEBanks que también recibe una función de respuesta
 y una de error:
-``` bash
+
+```php
 <?php
 
 namespace App\Http\Controllers;
@@ -97,7 +102,7 @@ Permite el pago de ordenes generadas a través del uso de un [*trait*](http://ph
 
 En el modelo de las ordenes, en este caso Order.php debe incluir:
 
-``` bash
+```php
 <?php
 
 namespace App;
@@ -126,7 +131,9 @@ consultas posteriormente.
 
 Una vez configurado el modelo, en el controlador designado para pagos podemos usar el método *payWith* para hacer la consulta y captura de pago (equivalente a doAuthorizationAndCapture en el sdk):
 
-``` bash
+```php
+<?php
+
 $order = Order::find($id);
 
 $data = [
@@ -172,7 +179,7 @@ Ver documentación del [sdk para pagos](http://developers.payulatam.com/es/sdk/p
 
 Para las consultas se agrega el trait Searchable en el modelo de la orden asi:
 
-``` bash
+```php
 <?php
 
 namespace App;
@@ -184,12 +191,14 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use Payable, Searchable;
-
+}
 ```
 
 Luego en el controlador designado para consultas podemos hacer consultas usando el id asignado por Payu, la referencia dada por nosotros, o el id de la transacción:
 
-``` bash
+```php
+<?php
+
 $order = Order::find($id);
 
 $order->searchById(function($response, $order) {
@@ -224,7 +233,7 @@ Ver documentación del [sdk de consultas](http://developers.payulatam.com/es/sdk
 Instalar las dependencias del paquete.
 Crear un archivo *.env* en la raiz del paquete con la configuración respectiva de pruebas para Colombia, ya que es el único país con los tres métodos de pago disponibles. Ver información en [sitio de PayU](http://developers.payulatam.com/es/sdk/sandbox.html) y luego si ejecutar las pruebas:
 
-``` bash
+```bash
 phpunit
 ```
 
