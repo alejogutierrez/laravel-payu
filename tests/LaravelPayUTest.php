@@ -8,6 +8,7 @@ use Fakes\User;
 class LaravelPayUTest extends PHPUnit_Framework_TestCase
 {
     protected $approvedOrder;
+    public $response;
 
     public static function setUpBeforeClass()
     {
@@ -23,17 +24,19 @@ class LaravelPayUTest extends PHPUnit_Framework_TestCase
     {
         $user = $this->getUser();
         $order = $this->getOrder();
+        $now = Carbon::now();
+        $dt = $now->addYears(4);
 
-        $session = md5('myecommercewebsite.com');
+        $session = md5(session_id().microtime());
         $data = [
             \PayUParameters::DESCRIPTION => 'Payment cc test',
             \PayUParameters::IP_ADDRESS => '127.0.0.1',
             \PayUParameters::CURRENCY => 'COP',
             \PayUParameters::CREDIT_CARD_NUMBER => '378282246310005',
-            \PayUParameters::CREDIT_CARD_EXPIRATION_DATE => '2017/02',
+            \PayUParameters::CREDIT_CARD_EXPIRATION_DATE => $dt->year.'/02',
             \PayUParameters::CREDIT_CARD_SECURITY_CODE => '1234',
             \PayUParameters::INSTALLMENTS_NUMBER => 1,
-            \PayUParameters::DEVICE_SESSION_ID => session_id($session),
+            \PayUParameters::DEVICE_SESSION_ID => $session,
             \PayUParameters::PAYMENT_METHOD => 'AMEX',
             \PayUParameters::PAYER_NAME => 'APPROVED',
             \PayUParameters::PAYER_DNI => $user->identification,
@@ -117,7 +120,7 @@ class LaravelPayUTest extends PHPUnit_Framework_TestCase
             // account testing enviroment equals true
             LaravelPayU::setAccountOnTesting(false);
 
-            $session = md5('myecommercewebsite.com');
+            $session = md5(session_id().microtime());
             $data = [
                 \PayUParameters::DESCRIPTION => 'Payment pse test',
                 \PayUParameters::IP_ADDRESS => '127.0.0.1',
@@ -133,7 +136,7 @@ class LaravelPayUTest extends PHPUnit_Framework_TestCase
                 \PayUParameters::PAYER_PERSON_TYPE => 'N',
                 \PayUParameters::PSE_FINANCIAL_INSTITUTION_CODE => $bankCode,
                 \PayUParameters::REFERENCE_CODE => $order->reference,
-                \PayUParameters::DEVICE_SESSION_ID => session_id($session),
+                \PayUParameters::DEVICE_SESSION_ID => $session,
                 \PayUParameters::USER_AGENT => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36',
                 \PayUParameters::VALUE => $order->value
             ];
