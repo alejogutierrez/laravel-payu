@@ -321,6 +321,8 @@ class LaravelPayU
      */
     public static function doPing($onSuccess, $onError)
     {
+        static::setPayUEnvironment();
+
         try {
             $response = \PayUPayments::doPing();
             if ($response) {
