@@ -4,16 +4,19 @@ use Alexo\LaravelPayU\LaravelPayU;
 use Carbon\Carbon;
 use Fakes\Order;
 use Fakes\User;
+use PHPUnit\Framework\TestCase;
 
-class LaravelPayUTest extends PHPUnit_Framework_TestCase
+class LaravelPayUTest extends TestCase
 {
     protected $approvedOrder;
     public $response;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
-        if (file_exists(__DIR__.'/../.env')) {
-            $dotenv = new Dotenv\Dotenv(__DIR__.'/../');
+        $path = __DIR__."/../";
+
+        if (file_exists($path.'.env')) {
+            $dotenv = Dotenv\Dotenv::createMutable($path);
             $dotenv->load();
         }
 
@@ -125,7 +128,7 @@ class LaravelPayUTest extends PHPUnit_Framework_TestCase
                 \PayUParameters::DESCRIPTION => 'Payment pse test',
                 \PayUParameters::IP_ADDRESS => '127.0.0.1',
                 \PayUParameters::CURRENCY => 'COP',
-                \PayUParameters::PAYER_COOKIE => 'pt1t38347bs6jc9ruv2ecpv7o2',
+                \PayUParameters::PAYER_COOKIE => 'pt1t38347bs6jc9ruv2ecpv7o1',
                 \PayUParameters::PAYMENT_METHOD => 'PSE',
                 \PayUParameters::BUYER_EMAIL => $user->email,
                 \PayUParameters::PAYER_NAME => $user->name,
@@ -142,17 +145,22 @@ class LaravelPayUTest extends PHPUnit_Framework_TestCase
             ];
 
             $order->payWith($data, function($response) {
+                echo json_encode($response);
                 if ($response->code == 'SUCCESS') {
                     // ... check transactionResponse object and do what you need
                     $this->assertEquals($response->transactionResponse->state, 'PENDING');
                 } else {
+
+                    echo ($response->code);
                     //... something went wrong
                 }
             }, function($error) {
+                echo json_encode($error);
                 // ... handle PayUException, InvalidArgument or another error
             });
 
         }, function($error) {
+            echo json_encode($error);
             // ... handle PayUException, InvalidArgument or another error
         });
     }
