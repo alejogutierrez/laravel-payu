@@ -13,7 +13,6 @@
     "php": ">=5.5.9"
   },
   "require-dev": {
-    "nesbot/carbon": "^2.34",
     "phpunit/phpunit": "^9.1",
     "vlucas/phpdotenv": "^4.1"
   },

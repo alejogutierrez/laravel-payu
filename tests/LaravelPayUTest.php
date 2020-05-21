@@ -1,7 +1,6 @@
 <?php
 
 use Alexo\LaravelPayU\LaravelPayU;
-use Carbon\Carbon;
 use Fakes\Order;
 use Fakes\User;
 use PHPUnit\Framework\TestCase;
@@ -27,8 +26,8 @@ class LaravelPayUTest extends TestCase
     {
         $user = $this->getUser();
         $order = $this->getOrder();
-        $now = Carbon::now();
-        $dt = $now->addYears(4);
+        $currentYear = date('Y');
+        $expirationYear = strtotime ('+4 years', strtotime ($currentYear));
 
         $session = md5(session_id().microtime());
         $data = [
@@ -36,7 +35,7 @@ class LaravelPayUTest extends TestCase
             \PayUParameters::IP_ADDRESS => '127.0.0.1',
             \PayUParameters::CURRENCY => 'COP',
             \PayUParameters::CREDIT_CARD_NUMBER => '378282246310005',
-            \PayUParameters::CREDIT_CARD_EXPIRATION_DATE => $dt->year.'/02',
+            \PayUParameters::CREDIT_CARD_EXPIRATION_DATE => date('Y', $expirationYear).'/02',
             \PayUParameters::CREDIT_CARD_SECURITY_CODE => '1234',
             \PayUParameters::INSTALLMENTS_NUMBER => 1,
             \PayUParameters::DEVICE_SESSION_ID => $session,
@@ -76,13 +75,14 @@ class LaravelPayUTest extends TestCase
         // account testing enviroment equals true
         LaravelPayU::setAccountOnTesting(false);
 
-        $now = Carbon::now();
-        $nextWeek = $now->addDays(8);
+        $now = date('Y-m-d');
+        $nextWeek = strtotime('+8 days', strtotime($now));
+
         $data = [
             \PayUParameters::DESCRIPTION => 'Payment cash test',
             \PayUParameters::IP_ADDRESS => '127.0.0.1',
             \PayUParameters::CURRENCY => 'COP',
-            \PayUParameters::EXPIRATION_DATE => $nextWeek->format('Y-m-d\TH:i:s'),
+            \PayUParameters::EXPIRATION_DATE => date('Y-m-d\TH:i:s', $nextWeek),
             \PayUParameters::PAYMENT_METHOD => 'BALOTO',
             \PayUParameters::BUYER_EMAIL => 'buyeremail@test.com',
             \PayUParameters::PAYER_NAME => 'APPROVED',
@@ -145,7 +145,6 @@ class LaravelPayUTest extends TestCase
             ];
 
             $order->payWith($data, function($response) {
-                echo json_encode($response);
                 if ($response->code == 'SUCCESS') {
                     // ... check transactionResponse object and do what you need
                     $this->assertEquals($response->transactionResponse->state, 'PENDING');
